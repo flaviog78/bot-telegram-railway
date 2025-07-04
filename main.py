@@ -9,7 +9,8 @@ from datetime import datetime, timedelta
 # --- CREDENCIAIS TELEGRAM ---
 api_id = 22321477
 api_hash = 'c882e1999c5422c0c2eb93da72f5fa83'
-session_name = 'data/sessao_flavio'
+session_name = 'data/sessao_railway'
+
 
 
 # --- CONFIGURAÇÃO DE GRUPOS ---

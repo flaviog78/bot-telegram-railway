@@ -1,6 +1,6 @@
 __pycache__/
 *.pyc
-*.session*
+data/
 historico.csv
 historico.json
 .env
