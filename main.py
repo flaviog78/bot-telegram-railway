@@ -6,20 +6,24 @@ import os
 import asyncio
 from datetime import datetime, timedelta
 
+# --- Diretórios e Sessão ---
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+os.makedirs(DATA_DIR, exist_ok=True)
+
+session_name = os.path.join(DATA_DIR, "sessao_railway")
+
 # --- CREDENCIAIS TELEGRAM ---
 api_id = 22321477
 api_hash = 'c882e1999c5422c0c2eb93da72f5fa83'
-session_name = 'data/sessao_railway'
-
-
 
 # --- CONFIGURAÇÃO DE GRUPOS ---
 grupo_origem_id = -1001941369397
-grupo_destino_id = -1002842676004  # ou None se não quiser encaminhar
+grupo_destino_id = -1002842676004  # ou None
 
 # --- HISTÓRICO ---
-csv_path = 'historico.csv'
-json_path = 'historico.json'
+csv_path = os.path.join(BASE_DIR, 'historico.csv')
+json_path = os.path.join(BASE_DIR, 'historico.json')
 
 client = TelegramClient(session_name, api_id, api_hash)
 
@@ -72,7 +76,7 @@ async def ao_vivo(event):
         with open(json_path, 'w', encoding='utf-8') as f:
             json.dump(historico, f, ensure_ascii=False, indent=2)
 
-        # Enviar para destino (opcional)
+        # Enviar para destino
         if grupo_destino_id:
             try:
                 await client.send_message(grupo_destino_id, event.message)
@@ -85,7 +89,7 @@ async def ao_vivo(event):
 async def agendador():
     while True:
         await buscar_mensagens_anteriores()
-        await asyncio.sleep(1800)  # 30 minutos
+        await asyncio.sleep(1800)
 
 async def main():
     await buscar_mensagens_anteriores()

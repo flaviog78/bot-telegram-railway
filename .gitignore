@@ -3,4 +3,3 @@ __pycache__/
 data/
 historico.csv
 historico.json
-.env
